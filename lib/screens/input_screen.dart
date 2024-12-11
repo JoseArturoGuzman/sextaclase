@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:sextaclase/constants.dart';
 
+import '../components/card_content.dart';
+import '../components/my_button.dart';
+import '../components/my_rounded_button.dart';
+import '../components/reusable_card.dart';
+
 enum Gender { male, female }
 
 class InputScreen extends StatefulWidget {
@@ -35,8 +40,8 @@ class _InputScreenState extends State<InputScreen> {
                     });
                   },
                   color: selectedGender == Gender.male
-                      ? Color(0xFF0B0E95)
-                      : Color(0xFF0B0E51),
+                      ? kColorCardSelect
+                      : kColorCardUnSelect,
                   cardChild: CardContent(
                     icon: Icons.male,
                     label: 'MALE',
@@ -51,8 +56,8 @@ class _InputScreenState extends State<InputScreen> {
                     });
                   },
                   color: selectedGender == Gender.female
-                      ? Color(0xFF0B0E95)
-                      : Color(0xFF0B0E51),
+                      ? kColorCardSelect
+                      : kColorCardUnSelect,
                   cardChild: CardContent(
                     icon: Icons.female,
                     label: 'Female',
@@ -63,9 +68,7 @@ class _InputScreenState extends State<InputScreen> {
           )),
           Expanded(
             child: ReusableCard(
-              color: Color(
-                0xFF0B0E51,
-              ),
+              color: kColorCardUnSelect,
               cardChild: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -87,10 +90,10 @@ class _InputScreenState extends State<InputScreen> {
                   ),
                   SliderTheme(
                     data: SliderTheme.of(context).copyWith(
-                        inactiveTickMarkColor: Color(0xFF0A2041),
-                        activeTickMarkColor: Color(0xFF093981),
-                        thumbColor: Color(0xFF092C71),
-                        overlayColor: Color(0xFF092651),
+                        inactiveTickMarkColor: inactiveTickMarkColor,
+                        activeTickMarkColor: activeTickMarkColor,
+                        thumbColor: thumbColor,
+                        overlayColor: overlayColor,
                         thumbShape:
                             RoundSliderThumbShape(enabledThumbRadius: 15),
                         overlayShape:
@@ -115,7 +118,7 @@ class _InputScreenState extends State<InputScreen> {
               children: [
                 Expanded(
                   child: ReusableCard(
-                    color: Color(0xFF0B0E61),
+                    color: kColorCardUnSelect,
                     cardChild: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -128,7 +131,7 @@ class _InputScreenState extends State<InputScreen> {
                         ),
                         Text(
                           '18',
-                          style: TextStyle(fontSize: 25),
+                          style: kTextStyleNormal,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -147,7 +150,7 @@ class _InputScreenState extends State<InputScreen> {
                 ),
                 Expanded(
                   child: ReusableCard(
-                    color: Color(0xFF0B0E61),
+                    color: kColorCardUnSelect,
                     cardChild: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -160,7 +163,7 @@ class _InputScreenState extends State<InputScreen> {
                         ),
                         Text(
                           '111',
-                          style: TextStyle(fontSize: 25),
+                          style: kTextStyleNormal,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -187,95 +190,7 @@ class _InputScreenState extends State<InputScreen> {
   }
 }
 
-class ReusableCard extends StatelessWidget {
-  const ReusableCard({
-    super.key,
-    required this.color,
-    this.cardChild,
-    this.onTap,
-  });
-  final Color color;
-  final Widget? cardChild;
-  final void Function()? onTap;
 
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        margin: EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          color: color, //Color(0xFF0B0E21),
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: cardChild,
-      ),
-    );
-  }
-}
 
-class CardContent extends StatelessWidget {
-  const CardContent({super.key, this.icon, this.label});
 
-  final IconData? icon;
-  final String? label;
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Icon(
-          icon,
-          size: 80,
-        ),
-        SizedBox(
-          height: 15,
-        ),
-        Text(
-          label!,
-          style: kLabelTextStyle,
-        )
-      ],
-    );
-  }
-}
 
-class MyRoundedButton extends StatelessWidget {
-  const MyRoundedButton({super.key, required this.icon, this.onPressed});
-
-  final IconData icon;
-  final void Function()? onPressed;
-  @override
-  Widget build(BuildContext context) {
-    return MaterialButton(
-      height: 53,
-      child: Icon(icon),
-      onPressed: () {
-        onPressed;
-      },
-      color: Color(0xFF4C5F50),
-      shape: CircleBorder(
-        side:BorderSide()
-      ),
-    );
-  }
-}
-
-class MyButton extends StatelessWidget {
-  const MyButton({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {},
-      child: Container(
-        width: double.infinity,
-        height: 60,
-        color: Colors.blue,
-        margin: EdgeInsets.only(top: 10),
-        padding: EdgeInsets.only(bottom: 20),
-        child: Center(child: Text('Calcula tu edad')),
-      ),
-    );
-  }
-}

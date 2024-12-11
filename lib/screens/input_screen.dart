@@ -50,7 +50,7 @@ class _InputScreenState extends State<InputScreen> {
                   child: ReusableCard(
                     onTap: () {
                       setState(() {
-                        selectedGender == Gender.female;
+                        selectedGender = Gender.female;
                       });
                     },
                     color: selectedGender == Gender.female
@@ -188,9 +188,9 @@ class ReusableCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        onTap;
-      },
+      onTap:
+        onTap,
+
       child: Container(
         margin: EdgeInsets.all(10),
         decoration: BoxDecoration(
@@ -239,11 +239,9 @@ class MyRoundedButton extends StatelessWidget {
       height: 53,
 
       child: Icon(icon),
-      onPressed: 
-    () {
-      onPressed;
+      onPressed: onPressed,
       
-    },
+
       color: Color(0xFF4C5F50),
 
     shape: CircleBorder(),);
